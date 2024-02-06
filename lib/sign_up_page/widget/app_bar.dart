@@ -21,12 +21,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     context.select<RegistrationProvider, bool>((p) => p.isDataFetching);
 
     return AppBar(
-      title: Text(provider.isEditMode ? 'Update Details' : 'Registration Details'),
+      //title: Text(provider.isEditMode ? 'Update Details' : 'Registration Details'),
+      title: const Text('Registration Details'),
       actions: [
         if (!isDataFetching) ...{
           isSubmittingData
               ? const CircularProgressIndicator()
-              : const _ButtonWidget(),
+               : const _ButtonWidget(),
         },
         SizedBox(width: 4.w),
       ],
@@ -38,7 +39,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _ButtonWidget extends StatelessWidget {
-  const _ButtonWidget({Key? key}) : super(key: key);
+  const _ButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,22 +66,43 @@ class _ButtonWidget extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
     }
-    return ElevatedButton(
-      onPressed: provider.saveOrUpdateDetails,
-      style: ElevatedButton.styleFrom(
-        primary: Colors.purpleAccent, // Set background color
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0), // Set border radius
+    // return ElevatedButton(
+    //   onPressed: provider.saveOrUpdateDetails,
+    //   style: ElevatedButton.styleFrom(
+    //     primary: Colors.purpleAccent, // Set background color
+    //     shape: RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.circular(8.0), // Set border radius
+    //     ),
+    //   ),
+    //   child: Padding(
+    //     padding: EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 4.w),
+    //     child: Text(
+    //       provider.isEditMode ? 'Update' : 'Register',
+    //       style: TextStyle(color: Colors.white), // Set the text color
+    //     ),
+    //   ),
+    // );
+    return Container(
+      margin: const EdgeInsets.all(8.0), // Add margin as needed
+      child: ElevatedButton(
+        onPressed: provider.saveOrUpdateDetails,
+        style: ElevatedButton.styleFrom(
+          primary: Colors.purpleAccent, // Set background color
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0), // Set border radius
+          ),
         ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 4.w),
-        child: Text(
-          provider.isEditMode ? 'Update' : 'Sign Up',
-          style: TextStyle(color: Colors.white), // Set the text color
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 4.w),
+          child: const Text(
+            //provider.isEditMode ? 'Update' : 'Register',
+              'Register',
+            style: TextStyle(color: Colors.white), // Set the text color
+          ),
         ),
       ),
     );
+
 
 
 

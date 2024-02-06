@@ -12,7 +12,7 @@ class RegistrationProvider extends ChangeNotifier {
   bool get isContinueButtonVisible => mobCtrl.text.length == 10;
 
   bool get isLoading => _isLoading;
-  var _isLoading = false;
+  final _isLoading = false;
 
  // RegistrationProvider(this.isEditMode);
 
@@ -183,8 +183,8 @@ class RegistrationProvider extends ChangeNotifier {
     //   gender: selectedGender!,
     // );
 
-    _isSubmittingData = true;
-    notifyListeners();
+    // _isSubmittingData = true;
+    // notifyListeners();
 
     /// Close keyboard
     //navService.nav.context.unfocus();
@@ -229,8 +229,8 @@ class RegistrationProvider extends ChangeNotifier {
     //   navService.nav.context.showErrorDialog(errorMsg: e.toString());
     // }
 
-    _isDataFetching = false;
-    notifyListeners();
+    // _isDataFetching = false;
+    // notifyListeners();
   }
 
   @override

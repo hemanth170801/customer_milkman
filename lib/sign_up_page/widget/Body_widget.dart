@@ -18,28 +18,56 @@ class BodyWidget1 extends StatelessWidget {
     if (isDataFetching) {
       return const Center(child: CircularProgressIndicator());
     }
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
+        child: Column(
+          children: [
+            const _FirstNameInputWidget(),
+            SizedBox(height: 2.h,),
+            const _LastNameInputWidget(),
+            SizedBox(height: 2.h,),
+            const MobInputWidget(),
+            SizedBox(height: 2.h,),
+            const _DateOfBirthInputWidget(),
+            SizedBox(height: 2.h,),
+            const GenderInputWidget(),
+            //const ButtonWidget(),
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
-      child: Column(
-        children: [
-          //SizedBox(height: 2.h),
-          // const MobInputWidget(),
-          // SizedBox(height: 2.h),
-          const _FirstNameInputWidget(),
-          SizedBox(height: 2.h),
-          const _LastNameInputWidget(),
-          SizedBox(height: 2.h),
-          const MobInputWidget(),
-          SizedBox(height: 2.h),
-          const _DateOfBirthInputWidget(),
-          SizedBox(height: 2.h),
-          const GenderInputWidget(),
-          SizedBox(height: 2.h),
 
-        ],
+            // Other widgets...
+          ],
+        ),
       ),
     );
+
+
+
+
+
+
+
+    // return Padding(
+    //   padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
+    //   child: Column(
+    //     children: [
+    //       //SizedBox(height: 2.h),
+    //       // const MobInputWidget(),
+    //       // SizedBox(height: 2.h),
+    //       const _FirstNameInputWidget(),
+    //       SizedBox(height: 2.h),
+    //       const _LastNameInputWidget(),
+    //       SizedBox(height: 2.h),
+    //       const MobInputWidget(),
+    //       SizedBox(height: 2.h),
+    //       const _DateOfBirthInputWidget(),
+    //       SizedBox(height: 2.h),
+    //       const GenderInputWidget(),
+    //       SizedBox(height: 2.h),
+    //
+    //     ],
+    //   ),
+    // );
   }
 }
 class MobInputWidget extends StatelessWidget {
@@ -59,14 +87,14 @@ class MobInputWidget extends StatelessWidget {
         FilteringTextInputFormatter.digitsOnly,
         LengthLimitingTextInputFormatter(10),
       ],
-      style: context.textTheme.headlineSmall?.copyWith(
-        //fontWeight: FontWeight.bold,
-        letterSpacing: 1,
-      ),
+      // style: context.textTheme.headlineSmall?.copyWith(
+      //   //fontWeight: FontWeight.bold,
+      //   letterSpacing: 1,
+      // ),
       onChanged: provider.onMobileNumberChanged,
       decoration:  InputDecoration(
         //prefixIcon: Icon(Icons.phone_android_rounded),
-        border: const OutlineInputBorder(),
+        border:  const OutlineInputBorder(),
         labelText: 'phone number*',
         errorText: pnumberErrormsg,
         //hintText: '7901010135',
@@ -130,6 +158,7 @@ class _LastNameInputWidget extends StatelessWidget {
     );
   }
 }
+
 
 class _DateOfBirthInputWidget extends StatelessWidget {
   const _DateOfBirthInputWidget({super.key});
