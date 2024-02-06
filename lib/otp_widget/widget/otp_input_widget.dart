@@ -22,7 +22,7 @@ class OtpInputWidget extends StatelessWidget {
       inputFormatter: <TextInputFormatter>[
         FilteringTextInputFormatter.digitsOnly,
       ],
-      length: 6,
+      length: 4,
       width: double.infinity,
       fieldWidth: 10.w,
       textFieldAlignment: MainAxisAlignment.start,

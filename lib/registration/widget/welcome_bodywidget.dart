@@ -137,7 +137,7 @@ class WelcomeButtonsWidget extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         CustomElevatedButton(
-          text: "sign_up",
+          text: "signup",
           margin: EdgeInsets.only(right: 2.h),
           buttonStyle: CustomButtonStyles.fillPrimary,
           buttonTextStyle: CustomTextStyles.titleSmallTeal300,
