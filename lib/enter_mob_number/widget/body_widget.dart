@@ -90,7 +90,7 @@ class _BodyWidgeteState extends State<BodyWidgete> {
             getStartedText,
             style: TextStyle(
               color: Colors.green, // Set the text color to green
-              fontSize: 12.0.sp, // Set the font size as needed
+              fontSize: 25.0.sp, // Set the font size as needed
               fontWeight: FontWeight.bold,
             ),
             //style: context.textTheme.headlineSmall,

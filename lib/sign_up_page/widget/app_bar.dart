@@ -22,7 +22,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       //title: Text(provider.isEditMode ? 'Update Details' : 'Registration Details'),
-      title: const Text('Registration Details'),
+      title: const Text('Registration '),
       actions: [
         if (!isDataFetching) ...{
           isSubmittingData
@@ -87,7 +87,7 @@ class _ButtonWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: provider.saveOrUpdateDetails,
         style: ElevatedButton.styleFrom(
-          primary: Colors.purpleAccent, // Set background color
+          primary: Colors.greenAccent, // Set background color
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0), // Set border radius
           ),
