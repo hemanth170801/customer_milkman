@@ -42,7 +42,7 @@ class FakeSearch extends StatelessWidget {
             ),
             Container(
               height: 32,
-              width: 75,
+              width: 72,
               decoration: BoxDecoration(
                   color: Colors.purple,
                   borderRadius: BorderRadius.circular(25)),
