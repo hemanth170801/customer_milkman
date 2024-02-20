@@ -1,4 +1,20 @@
+import 'package:customer_milkman/categories/buttermilk_categ.dart';
+import 'package:customer_milkman/categories/cheese_categ.dart';
+import 'package:customer_milkman/categories/coldcoffee_categ.dart';
+import 'package:customer_milkman/categories/curd_categ.dart';
+import 'package:customer_milkman/categories/flavoured_milk_categ.dart';
+import 'package:customer_milkman/categories/fresh_cream_categ.dart';
+import 'package:customer_milkman/categories/frozen_desserts_categ.dart';
+import 'package:customer_milkman/categories/ghee_categ.dart';
+import 'package:customer_milkman/categories/ice_creams_categ.dart';
+import 'package:customer_milkman/categories/lassi_categ.dart';
 import 'package:customer_milkman/categories/milk_categ.dart';
+import 'package:customer_milkman/categories/milkshake_categ.dart';
+import 'package:customer_milkman/categories/paneer_categ.dart';
+import 'package:customer_milkman/categories/skimmed_milk_powder_categ.dart';
+import 'package:customer_milkman/categories/sweets_categ.dart';
+import 'package:customer_milkman/categories/uht_milk_categ.dart';
+import 'package:customer_milkman/categories/wheydrink_categ.dart';
 import 'package:customer_milkman/widgets/fake_search.dart';
 import 'package:flutter/material.dart';
 
@@ -121,57 +137,23 @@ class _CategoryScreenState extends State<CategoryScreen> {
         scrollDirection: Axis.vertical,
         children: const [
           MilkCategory(),
-          Center(
-            child: Text('Curd Category'),
-          ),
-          Center(
-            child: Text('Ghee Category'),
-          ),
-          Center(
-            child: Text('Paneer Category'),
-          ),
-          Center(
-            child: Text('Lassi Category'),
-          ),
-          Center(
-            child: Text('Buttermilk Category'),
-          ),
-          Center(
-            child: Text('Cheese Category'),
-          ),
-          Center(
-            child: Text('Cold Coffee Category'),
-          ),
-          Center(
-            child: Text('Whey Drink Category'),
-          ),
-          Center(
-            child: Text('UHT Milk Category'),
-          ),
-          Center(
-            child: Text('Frozen Desserts Category'),
-          ),
-          Center(
-            child: Text('Ice-Cream Category'),
-          ),
-          Center(
-            child: Text('Milkshake Category'),
-          ),
-          Center(
-            child: Text('Sweets Category'),
-          ),
-          Center(
-            child: Text('Butter Category'),
-          ),
-          Center(
-            child: Text('Fresh Cream Category'),
-          ),
-          Center(
-            child: Text('Flavoured Milk Category'),
-          ),
-          Center(
-            child: Text('Skimmed Milk powder Category'),
-          ),
+          CurdCategory(),
+          GheeCategory(),
+          PaneerCategory(),
+          LassiCategory(),
+          ButtermilkCategory(),
+          CheeseCategory(),
+          ColdCoffeeCategory(),
+          WheyDrinkCategory(),
+          UHTMilkCategory(),
+          FrozenDessertCategory(),
+          IceCreamsCategory(),
+          MilkshakeCategory(),
+          SweetsCategory(),
+          ButtermilkCategory(),
+          FreshCreamCategory(),
+          FlavouredMilkCategory(),
+          SkimmedMilkPowderCategory(),
         ],
       ),
     );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:customer_milkman/utilities/categ_list.dart';
 import '../widgets/categ_widgets.dart';
 
-class MilkCategory extends StatelessWidget {
-  const MilkCategory({super.key});
+class SweetsCategory extends StatelessWidget {
+  const SweetsCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +20,19 @@ class MilkCategory extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 const CategHeaderLabel(headerLabel: 'Milk',),
+                  const CategHeaderLabel(headerLabel: 'Sweets',),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.68,
                     child: GridView.count(
                       mainAxisSpacing: 30,
                       crossAxisSpacing: 15,
                       crossAxisCount: 2,
-                      children: List.generate(milk.length, (index) {
+                      children: List.generate(sweets.length, (index) {
                         return SubcategModel(
-                          mainCategName: 'Milk',
-                          subCategName: milk[index],
+                          mainCategName: 'Sweets',
+                          subCategName: sweets[index],
                           assetName: 'images/company_logos/company$index.jpg',
-                          subCategLabel: milk[index],
+                          subCategLabel: sweets[index],
                         );
                       }),
                     ),
@@ -44,7 +44,7 @@ class MilkCategory extends StatelessWidget {
           const Positioned(
             bottom: 0,
             right: 0,
-            child: SliderBar(maincategName: 'Milk',
+            child: SliderBar(maincategName: 'Sweets',
             ),
           ),
         ],
