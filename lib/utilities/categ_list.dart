@@ -1,3 +1,45 @@
+List<String> company = [
+  'Doodla',
+  'Heritage',
+  'Sangam',
+  'Vijaya',
+];
+List<String> heritage_milk = [
+  'Gold Milk',
+  'Super Gold Milk',
+  'Toned Milk',
+  'Full Cream Milk',
+  'Standardized Milk',
+  'Double Toned Milk',
+  'Cow Milk',
+  'Slim Milk',
+  'A2 Full Cream Milk',
+  'Buffalo Milk',
+];
+List<String> doodla_milk = [
+  'Toned Milk',
+  'Full Cream Milk',
+  'Standardised Milk',
+  'UHT - Double Toned Milk',
+  'UHT - Toned Milk',
+  'UHT - Treated Double Toned Milk',
+  'Tea Magic Milk',
+];
+List<String> sangam_milk = [
+  'Gold Plus Milk',
+  'Tea Special Milk',
+  'Premium Milk',
+  'Gold Milk',
+  'Toned Milk',
+  'Low Fat Milk',
+];
+List<String> vijaya_milk = [
+  'Gold Milk',
+  'Super Gold Milk',
+  'Sampoorna Full Cream Milk',
+  'Tea Special Gold Milk',
+  'Lite Milk',
+];
 List<String> milk = [
   'Doodla Milk',
   'Heritage Milk',

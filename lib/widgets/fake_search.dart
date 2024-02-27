@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../minor_screens/search.dart';
 
@@ -14,18 +15,19 @@ class FakeSearch extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchScreen()));
       },
       child: Container(
-        height: 35,
+        height: 4.h,
+        width: 95.w,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.purple, width: 1.4),
           borderRadius: BorderRadius.circular(25),
         ),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Row(
+            Row(
               children:[
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 10),
+                  padding:  EdgeInsets.symmetric(horizontal:20),
                   child: Icon(
                     Icons.search,
                     color: Colors.grey,
@@ -40,22 +42,22 @@ class FakeSearch extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              height: 32,
-              width: 72,
-              decoration: BoxDecoration(
-                  color: Colors.purple,
-                  borderRadius: BorderRadius.circular(25)),
-              child:const Center(
-                child: Text(
-                  'Search',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-            ),
+            // Container(
+            //   height: 4.h,
+            //   width: 9.h,
+            //   decoration: BoxDecoration(
+            //       color: Colors.purple,
+            //       borderRadius: BorderRadius.circular(25)),
+            //   child:const Center(
+            //     child: Text(
+            //       'Search',
+            //       style: TextStyle(
+            //         fontSize: 16,
+            //         color: Colors.grey,
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

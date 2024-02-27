@@ -11,25 +11,29 @@ class CountDownWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<EnterOtpProvider>();
 
-    return Row(
-      children: [
-        Text(
-          'Having trouble? ',
-          style: context.textTheme.bodyMedium,
-        ),
-        const SizedBox(width: 10),
-        if (provider.otpResendCount == 0) ...{
-          TextButton(
-            onPressed: () => provider.onResendOtp(),
-            child: const Text('Resend'),
-          ),
-        } else ...{
+    return SingleChildScrollView(
+      physics: AlwaysScrollableScrollPhysics(),
+      child: Row(
+        
+        children: [
           Text(
-            "You can resend OTP ofter 00: ${provider.otpResendCount} ",
-            style: context.textTheme.bodyMedium,
+            'Having trouble? ',
+            style: context.textTheme.bodySmall,
           ),
-        },
-      ],
+          const SizedBox(width: 10),
+          if (provider.otpResendCount == 0) ...{
+            TextButton(
+              onPressed: () => provider.onResendOtp(),
+              child: const Text('Resend'),
+            ),
+          } else ...{
+            Text(
+              "Resend OTP ofter 00:${provider.otpResendCount} ",
+              style: context.textTheme.bodySmall,
+            ),
+          },
+        ],
+      ),
     );
   }
 }

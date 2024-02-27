@@ -18,7 +18,7 @@ class WelcomeButtonsWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal:16, vertical:16),
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('images/company_logos/bg.jpg'),
+          image: AssetImage('images/bg.jpg'),
           fit: BoxFit.cover,
         ),
       ),

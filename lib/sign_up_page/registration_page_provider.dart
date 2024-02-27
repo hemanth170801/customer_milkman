@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
-class RegistrationProvider extends ChangeNotifier {
+class  RegistrationProvider extends ChangeNotifier {
   // final userDetailsService = getIt<UserDetailsService>();
   // final navService = getIt<NavService>();
   final log = Logger('RegistrationProvider');
@@ -15,8 +15,6 @@ class RegistrationProvider extends ChangeNotifier {
   final _isLoading = false;
 
   // RegistrationProvider(this.isEditMode);
-
-
 
   final bool isEditMode;
   final fNameCtrl = TextEditingController();

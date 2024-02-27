@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../minor_screens/subcateg_products.dart';
 
@@ -25,7 +26,7 @@ class SliderBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                maincategName == 'SkimmedMilk Powder'?const Text(''):const Text(
+                maincategName == 'Skimmed Milk Powder'?const Text(''):const Text(
                   ' << ',
                   style: style
                 ),
@@ -102,9 +103,9 @@ class CategHeaderLabel extends StatelessWidget {
       child: Text(
         headerLabel,
         style: const TextStyle(
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
-            letterSpacing: 1.5),
+            letterSpacing: 1.0),
       ),
     );
   }
