@@ -1,7 +1,9 @@
 import 'package:customer_milkman/main_screens/select_plans.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../utilities/categ_list.dart';
+import 'dropdwonwidget_provider.dart';
 
 
 class DropDownWidget extends StatelessWidget {
@@ -49,10 +51,13 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
   String selectedMilk = '';
   String selectedQuantity = '';
   List<String> selectedMilkList = [];
-  List<String> quantities = ['Half Litre', 'One Litre', '135 ml '];
+  List<String> quantities = ['500 ml', '1000 ml', '135 ml '];
+  String selectedPackets = '';
+  List<String> selectedPackets1 =["1","2",'3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20',];
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         DropdownButtonFormField(
@@ -69,6 +74,7 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
               selectedMilkList = getMilkList(selectedCompany);
               selectedMilk = '';
               selectedQuantity = '';
+              selectedPackets = '';
             });
           },
           decoration: const InputDecoration(
@@ -110,7 +116,6 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
               setState(() {
                 selectedQuantity = value as String;
                 // Perform action based on selected quantity
-                print('Selected Quantity: $selectedQuantity');
               });
             },
             decoration: const InputDecoration(
@@ -118,6 +123,27 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
               labelText: "Select Quantity*",
             ),
           ),
+        const SizedBox(height: 10),
+        if (selectedQuantity.isNotEmpty)
+          DropdownButtonFormField(
+            value: selectedPackets.isNotEmpty ? selectedPackets : null,
+            items: selectedPackets1.map((String selectedPackets) {
+              return DropdownMenuItem(
+                value: selectedPackets,
+                child: Text(selectedPackets),
+              );
+            }).toList(),
+            onChanged: (Object? value) {
+              setState(() {
+                selectedPackets = value as String;
+              });
+            },
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "selectedPackets*",
+            ),
+          ),
+
       ],
     );
   }

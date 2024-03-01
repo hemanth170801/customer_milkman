@@ -17,7 +17,8 @@ class _PlansScreenState extends State<PlansScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Plans'),
+        title: const Text('Plans'),
+        //leading: Container(),
       ),
       body: Center(
         child: Column(
@@ -45,20 +46,20 @@ class _PlansScreenState extends State<PlansScreen> {
             ),
             if (isEditing)
               Container(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Edit Plan'),
-                    SizedBox(height: 10),
+                    const Text('Edit Plan'),
+                    const SizedBox(height: 10),
                     Text('Milk: $selectedMilk'),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
-                        Text('Schedule: '),
+                        const Text('Schedule: '),
                         DropdownButton<String>(
                           value: selectedSchedule,
                           onChanged: (String? newValue) {
@@ -76,10 +77,10 @@ class _PlansScreenState extends State<PlansScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
-                        Text('Quantity: '),
+                        const Text('Quantity: '),
                         IconButton(
                           onPressed: () {
                             setState(() {
@@ -88,7 +89,7 @@ class _PlansScreenState extends State<PlansScreen> {
                               }
                             });
                           },
-                          icon: Icon(Icons.remove),
+                          icon: const Icon(Icons.remove),
                         ),
                         Text('$selectedQuantity'),
                         IconButton(
@@ -101,7 +102,7 @@ class _PlansScreenState extends State<PlansScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -112,16 +113,16 @@ class _PlansScreenState extends State<PlansScreen> {
                               // Add logic to cancel editing here
                             });
                           },
-                          child: Text('Cancel'),
+                          child: const Text('Cancel'),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         ElevatedButton(
                           onPressed: () {
                             setState(() {
                               // Add logic to save changes here
                             });
                           },
-                          child: Text('Save'),
+                          child: const Text('Save'),
                         ),
                       ],
                     ),

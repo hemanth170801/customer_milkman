@@ -67,6 +67,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         title: const FakeSearch(),
+        leading: Container(),
       ),
       body: Stack(
         children: [

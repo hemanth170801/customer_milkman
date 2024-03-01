@@ -80,6 +80,7 @@ class MobInputWidget extends StatelessWidget {
     context.select<RegistrationProvider, String?>((p) => p.pnumberErrormsg);
 
     return TextField(
+
       autofocus: true,
       controller: provider.mobCtrl,
       keyboardType: TextInputType.number,
