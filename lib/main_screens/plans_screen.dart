@@ -287,10 +287,10 @@ class _PlansScreenState extends State<PlansScreen> {
   void initState() {
     super.initState();
     _selectedDate = DateTime.now();
-    fromDate = widget.selectedFromDate; // Initialize fromDate with the selectedFromDate
+    fromDate = widget
+        .selectedFromDate; // Initialize fromDate with the selectedFromDate
     toDate = widget.selectedToDate;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
