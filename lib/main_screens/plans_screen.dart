@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -41,10 +40,10 @@ class _PlansScreenState extends State<PlansScreen> {
           _buildDateList(),
           SizedBox(height: 16),
           if (_selectedDate != null) ...[
-          //   Text(
-          //     'Tasks for ${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
-          //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          //   ),
+            // Text(
+            //   'Tasks for ${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
+            //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            // ),
 
             const SizedBox(height: 8),
             Expanded(
@@ -84,14 +83,16 @@ class _PlansScreenState extends State<PlansScreen> {
               width: 60,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: _selectedDate.day == date.day ? Colors.purple : null,
-                borderRadius: BorderRadius.circular(8),
+                color: _selectedDate.day == date.day ? Colors.purple : Colors.purpleAccent ,               borderRadius: BorderRadius.circular(8),
+
               ),
               child: Text(
                 '${date.day}',
                 style: TextStyle(
                   color: _selectedDate.day == date.day ? Colors.white : Colors.black,
                   fontWeight: FontWeight.bold,
+                  //backgroundColor: Colors.cyan
+
                 ),
               ),
 
