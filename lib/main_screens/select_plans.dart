@@ -487,118 +487,36 @@ class _SelectPlansState extends State<SelectPlans> {
               ),
             ),
             const SizedBox(height: 16),
-            GestureDetector(
-              onTap: () {
+            const Text('Scheduled:'),
+            const SizedBox(height: 8),
+            DropdownButton<String>(
+              value: selectedSchedule,
+              onChanged: (String? newValue) {
                 setState(() {
-                  isEditing = !isEditing;
+                  selectedSchedule = newValue!;
                 });
               },
-              child: Container(
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('$selectedMilk - $selectedQuantity'),
-                    Icon(Icons.edit),
-                  ],
-                ),
-              ),
+              items: <String>[
+                'Daily',
+                'Alternate Days',
+                'Weekdays',
+                'Weekends',
+                'Fortnights'
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
             ),
-            if (isEditing)
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Edit Plan'),
-                    const SizedBox(height: 10),
-                    Text('Milk: $selectedMilk'),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        const Text('Schedule: '),
-                        DropdownButton<String>(
-                          value: selectedSchedule,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              selectedSchedule = newValue!;
-                            });
-                          },
-                          items: <String>['Daily', 'Alternate Days', 'Weekdays', 'Weekends', 'FortNight']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        const Text('Quantity: '),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              if (selectedQuantity > 1) {
-                                selectedQuantity--;
-                              }
-                            });
-                          },
-                          icon: const Icon(Icons.remove),
-                        ),
-                        Text('$selectedQuantity'),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              selectedQuantity++;
-                            });
-                          },
-                          icon: Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              isEditing = false;
-                              // Add logic to cancel editing here
-                            });
-                          },
-                          child: const Text('Cancel'),
-                        ),
-                        const SizedBox(width: 10),
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              isEditing=true;
-                            });
-                          },
-                          child: const Text('Save'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-             ButtonWidget(),
+            ButtonWidget(),
           ],
         ),
       ),
     );
   }
 }
+
 
 class ButtonWidget extends StatelessWidget {
   ButtonWidget({Key? key}) : super(key: key);
@@ -624,14 +542,13 @@ class ButtonWidget extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => PlansScreen(
-                        selectedFromDate: fromDate!,
-                        selectedToDate: toDate!,
+                         selectedFromDate: fromDate!,
+                         selectedToDate: toDate!,
                       ),
                     ),
                   );
                 } else {
-                  // Handle the case where either fromDate or toDate is null
-                  // You can show a message or take appropriate action
+
                 }
               },
               child: const Text('Add to Plans'),
@@ -642,3 +559,4 @@ class ButtonWidget extends StatelessWidget {
     );
   }
 }
+
