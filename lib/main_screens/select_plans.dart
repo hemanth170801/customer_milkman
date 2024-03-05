@@ -509,7 +509,11 @@ class _SelectPlansState extends State<SelectPlans> {
                 );
               }).toList(),
             ),
-            ButtonWidget(),
+            ButtonWidget(
+              fromDate: fromDate,
+              toDate: toDate,
+            ),
+
           ],
         ),
       ),
@@ -519,9 +523,10 @@ class _SelectPlansState extends State<SelectPlans> {
 
 
 class ButtonWidget extends StatelessWidget {
-  ButtonWidget({Key? key}) : super(key: key);
-  DateTime? fromDate;
-  DateTime? toDate;
+  const ButtonWidget({super.key, required this.fromDate, required this.toDate});
+
+  final DateTime? fromDate;
+  final DateTime? toDate;
 
   @override
   Widget build(BuildContext context) {
@@ -542,13 +547,14 @@ class ButtonWidget extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => PlansScreen(
-                         selectedFromDate: fromDate!,
-                         selectedToDate: toDate!,
+                        selectedFromDate: fromDate!,
+                        selectedToDate: toDate!,
                       ),
                     ),
                   );
                 } else {
-
+                  // Handle the case where fromDate or toDate is null
+                  // You might want to show a message or take appropriate action
                 }
               },
               child: const Text('Add to Plans'),
@@ -559,4 +565,3 @@ class ButtonWidget extends StatelessWidget {
     );
   }
 }
-

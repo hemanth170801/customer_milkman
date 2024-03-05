@@ -31,9 +31,10 @@ class _PlansScreenState extends State<PlansScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Track Daily Orders'),
-      // ),
+      appBar: AppBar(
+        title: const Text('Track Daily Orders'),
+        backgroundColor: Colors.blue,
+      ),
 
       body: Column(
         children: [
