@@ -1,6 +1,7 @@
 import 'package:customer_milkman/main_screens/category.dart';
 import 'package:customer_milkman/main_screens/home.dart';
 import 'package:customer_milkman/main_screens/plans_screen.dart';
+import 'package:customer_milkman/main_screens/profile.dart';
 import 'package:flutter/material.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
@@ -15,9 +16,9 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   final List<Widget> _tabs = [
     HomeScreen(),
     CategoryScreen(),
-    //PlansScreen(),
+    const PlansScreen(),
     Center(child: Text('cart Screen')),
-    Center(child: Text('profile Screen')),
+    profile(),
   ];
   @override
   Widget build(BuildContext context) {
