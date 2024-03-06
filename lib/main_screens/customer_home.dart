@@ -13,12 +13,14 @@ class CustomerHomeScreen extends StatefulWidget {
 
 class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   int _selectedIndex = 0;
+  late DateTime selectedFromDate;
+  late DateTime selectedToDate;
   final List<Widget> _tabs = [
-    HomeScreen(),
-    CategoryScreen(),
-    const PlansScreen(),
+    const HomeScreen(),
+    const CategoryScreen(),
+    PlansScreen(selectedFromDate: DateTime.now(), selectedToDate: DateTime.now()),
     Center(child: Text('cart Screen')),
-    profile(),
+    Profile(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -74,3 +76,4 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     );
   }
 }
+
