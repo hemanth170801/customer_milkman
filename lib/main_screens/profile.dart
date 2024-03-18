@@ -479,3 +479,5 @@ class SettingSwitch extends StatelessWidget {
     );
   }
 }
+
+//profile screen
