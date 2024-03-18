@@ -32,6 +32,7 @@ dependencies:
   logging: ^1.2.0
   json_annotation: ^4.4.0
   flex_color_scheme: ^7.3.1
+  ionicons: ^0.2.2
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +53,7 @@ flutter:
   assets:
     - images/company_logos/
     - images/bg.jpg
+    - images/avatar.png
 
 
 

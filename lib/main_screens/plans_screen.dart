@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class PlansScreen extends StatefulWidget {
   final DateTime selectedFromDate;
@@ -13,7 +14,6 @@ class PlansScreen extends StatefulWidget {
   @override
   _PlansScreenState createState() => _PlansScreenState();
 }
-
 class _PlansScreenState extends State<PlansScreen> {
   late DateTime _selectedDate;
 
@@ -21,6 +21,7 @@ class _PlansScreenState extends State<PlansScreen> {
   void initState() {
     super.initState();
     _selectedDate = widget.selectedFromDate;
+   _selectedDate=widget.selectedToDate;
   }
 
   @override
@@ -29,37 +30,67 @@ class _PlansScreenState extends State<PlansScreen> {
       appBar: AppBar(
         title: const Text('Selected Plans'),
       ),
-      body: _buildDateList(),
+      body: Column(
+        children: [
+          _buildDateList(),
+          const SizedBox(height: 16),
+          if (_selectedDate != null) ...[
+            Container(
+              padding: const EdgeInsets.all(8),
+              color: Colors.purple,
+              width: 1000.h,
+              child: Center(
+                child: Text(
+                  ' ${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
     );
   }
 
   Widget _buildDateList() {
     return SizedBox(
-
       height: 60,
-
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: widget.selectedToDate.difference(widget.selectedFromDate).inDays + 1,
+        itemCount:
+            widget.selectedToDate.difference(widget.selectedFromDate).inDays +
+                1,
         itemBuilder: (context, index) {
           DateTime date = widget.selectedFromDate.add(Duration(days: index));
+          DateTime date1=widget.selectedToDate.add(Duration(days: index));
           return InkWell(
             onTap: () {
               setState(() {
                 _selectedDate = date;
+               // _selectedDate=date1;
+
               });
             },
             child: Container(
               width: 60,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: _selectedDate.day == date.day ? Colors.purple : Colors.orangeAccent.shade100,
+                color: _selectedDate.day == date.day
+                    ? Colors.purple
+                    : Colors.orangeAccent.shade100,
                 borderRadius: BorderRadius.circular(8),
+
               ),
               child: Text(
                 '${date.day}',
+                semanticsLabel: '${date1.day}',
                 style: TextStyle(
-                  color: _selectedDate.day == date.day ? Colors.white : Colors.black,
+                  color: _selectedDate.day == date.day
+                      ? Colors.white
+                      : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -70,3 +101,4 @@ class _PlansScreenState extends State<PlansScreen> {
     );
   }
 }
+
