@@ -169,10 +169,11 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:sizer/sizer.dart';
+
 import '../utilities/categ_list.dart';
-import 'dropdwonwidget_provider.dart';
 
 class DropDownWidget extends StatelessWidget {
   const DropDownWidget({super.key});
@@ -184,12 +185,10 @@ class DropDownWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.w),
         child: Column(
           children: [
-            SizedBox(height: 50),
-            const CompanyDropDownWidget(),
-            const SizedBox(
-              height: 50,
-            ),
-            DateRangePickerDemo(),
+            SizedBox(height: 5),
+            CompanyDropDownWidget(),
+            SizedBox(height: 5),
+            DropDownCalendarDemo(),
           ],
         ),
       ),
@@ -237,10 +236,13 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        SizedBox(height: 10), // Add SizedBox for spacing
         DropdownButtonFormField(
           value: selectedCompany.isNotEmpty ? selectedCompany : null,
-          items: company.map((String companyName) {
+          items: ['Heritage', 'Doodla', 'Sangam', 'Vijaya']
+              .map((String companyName) {
             return DropdownMenuItem(
               value: companyName,
               child: Text(companyName),
@@ -260,7 +262,7 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
             labelText: "Select Company*",
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10), // Add SizedBox for spacing
         if (selectedMilkList.isNotEmpty)
           DropdownButtonFormField(
             value: selectedMilk.isNotEmpty ? selectedMilk : null,
@@ -280,7 +282,7 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
               labelText: "Select Milk*",
             ),
           ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10), // Add SizedBox for spacing
         if (selectedMilk.isNotEmpty)
           DropdownButtonFormField(
             value: selectedQuantity.isNotEmpty ? selectedQuantity : null,
@@ -301,7 +303,7 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
               labelText: "Select Quantity*",
             ),
           ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10), // Add SizedBox for spacing
         if (selectedQuantity.isNotEmpty)
           DropdownButtonFormField(
             value: selectedPackets.isNotEmpty ? selectedPackets : null,
@@ -321,6 +323,7 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
               labelText: "selectedPackets*",
             ),
           ),
+        SizedBox(height: 10), // Add SizedBox for spacing
       ],
     );
   }
@@ -341,59 +344,133 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
   }
 }
 
-class DateRangePickerDemo extends StatefulWidget {
+class DropDownCalendarDemo extends StatefulWidget {
   @override
-  _DateRangePickerDemoState createState() => _DateRangePickerDemoState();
+  _DropDownCalendarDemoState createState() => _DropDownCalendarDemoState();
 }
 
-class _DateRangePickerDemoState extends State<DateRangePickerDemo> {
-  DateTime? _startDate;
-  DateTime? _endDate;
+class _DropDownCalendarDemoState extends State<DropDownCalendarDemo> {
+  late String _selectedOption;
+  late DateTime _selectedDate;
+  late CalendarFormat _calendarFormat;
+  late DateTime _focusedDay;
+  late DateTime _firstDay;
+  late DateTime _lastDay;
+  late final PageController _pageController;
 
-  Future<void> _selectDateRange(BuildContext context) async {
-    final initialDateRange = DateTimeRange(
-      start: _startDate ?? DateTime.now(),
-      end: _endDate ?? DateTime.now().add(Duration(days: 7)),
-    );
-
-    final newDateRange = await showDateRangePicker(
-      context: context,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2100),
-      initialDateRange: initialDateRange,
-    );
-
-    if (newDateRange == null) return;
-
-    setState(() {
-      _startDate = newDateRange.start;
-      _endDate = newDateRange.end;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _selectedOption = 'Daily';
+    _selectedDate = DateTime.now();
+    _focusedDay = DateTime.now();
+    _calendarFormat = CalendarFormat.month;
+    _firstDay = DateTime.utc(DateTime.now().year, DateTime.now().month - 1, 1);
+    _lastDay = DateTime.utc(DateTime.now().year, DateTime.now().month + 1, 1)
+        .subtract(Duration(days: 1));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () => _selectDateRange(context),
-          child: Text('Select Date Range'),
-        ),
-        if (_startDate != null && _endDate != null)
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Text(
-            'Selected Date Range: ${_startDate!.toString().split(' ')[0]} to ${_endDate!.toString().split(' ')[0]}',
+            'Select Your Plan',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
-      ],
+          SizedBox(height: 8),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                _buildPlanButton('Daily'),
+                _buildPlanButton('Weekly'),
+                _buildPlanButton('Fortnight'),
+                _buildPlanButton('Alternate Days'),
+                _buildPlanButton('One Day'),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          _buildCalendar(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPlanButton(String plan) {
+    return ElevatedButton(
+      onPressed: () {
+        setState(() {
+          _selectedOption = plan == _selectedOption ? '' : plan;
+        });
+      },
+      style: ButtonStyle(
+        backgroundColor: plan == _selectedOption
+            ? MaterialStateProperty.all<Color>(Colors.green)
+            : null,
+      ),
+      child: Text(plan),
+    );
+  }
+
+  Widget _buildCalendar() {
+    switch (_selectedOption) {
+      case 'Weekly':
+        _calendarFormat = CalendarFormat.week;
+        break;
+      case 'Fortnight':
+        _calendarFormat = CalendarFormat.week;
+        _lastDay = _firstDay.add(Duration(days: 13));
+        break;
+      case 'Alternate Days':
+        _calendarFormat = CalendarFormat.week;
+        _lastDay = _firstDay.add(Duration(days: 1));
+        break;
+      case 'One Day':
+        _calendarFormat = CalendarFormat.week;
+        _lastDay = _firstDay;
+        break;
+      case 'Daily':
+      default:
+        _calendarFormat = CalendarFormat.month;
+    }
+
+    // Ensure focusedDay is before lastDay
+    if (_focusedDay.isAfter(_lastDay)) {
+      _focusedDay = _lastDay;
+    }
+
+    return TableCalendar(
+      firstDay: _firstDay,
+      lastDay: _lastDay,
+      focusedDay: _focusedDay,
+      calendarFormat: _calendarFormat,
+      onFormatChanged: (format) {
+        setState(() {
+          _calendarFormat = format;
+        });
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+        setState(() {
+          _selectedDate = selectedDay;
+          _focusedDay = focusedDay;
+        });
+      },
+      calendarBuilders: CalendarBuilders(
+        dowBuilder: (context, day) {
+          return Center(
+            child: Text(
+              DateFormat.E().format(day).substring(0, 1),
+              style: TextStyle(color: Colors.blue),
+            ),
+          );
+        },
+      ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

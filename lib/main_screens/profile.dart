@@ -10,18 +10,18 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  bool isDarkMode = true;
+  bool isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Ionicons.chevron_back_outline),
-        ),
-        leadingWidth: 80,
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     onPressed: () {},
+      //     icon: const Icon(Ionicons.chevron_back_outline),
+      //   ),
+      //   leadingWidth: 80,
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(30),
@@ -39,7 +39,7 @@ class _AccountScreenState extends State<AccountScreen> {
               const Text(
                 "Account",
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 22,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -285,7 +285,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
               const SizedBox(height: 40),
               const EditItem(
                 widget: TextField(),
-                title: "Date Of Birth",
+                title: "DOB",
               ),
               const SizedBox(height: 40),
               const EditItem(

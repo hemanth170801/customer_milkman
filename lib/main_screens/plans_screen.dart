@@ -27,9 +27,9 @@ class _PlansScreenState extends State<PlansScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Selected Plans'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Selected Plans'),
+      // ),
       body: Column(
         children: [
           _buildDateList(),
