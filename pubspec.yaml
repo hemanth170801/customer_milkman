@@ -26,6 +26,7 @@ dependencies:
 
 
 
+
   responsive_size_utils: ^0.1.6
 
   shared_preferences: ^2.2.2

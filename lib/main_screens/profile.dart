@@ -84,14 +84,14 @@ class _AccountScreenState extends State<AccountScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 40),
-              const Text(
-                "Settings",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              // const SizedBox(height: 40),
+              // const Text(
+              //   "Settings",
+              //   style: TextStyle(
+              //     fontSize: 24,
+              //     fontWeight: FontWeight.w500,
+              //   ),
+              // ),
               const SizedBox(height: 20),
               SettingItem(
                 title: "Language",

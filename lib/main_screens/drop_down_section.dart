@@ -1,9 +1,8 @@
-
+import 'package:customer_milkman/main_screens/plans_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:sizer/sizer.dart';
-
 import '../utilities/categ_list.dart';
 
 class DropDownWidget extends StatelessWidget {
@@ -175,6 +174,8 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
   }
 }
 
+
+
 // class DropDownCalendarDemo extends StatefulWidget {
 //   @override
 //   _DropDownCalendarDemoState createState() => _DropDownCalendarDemoState();
@@ -209,7 +210,7 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
-//           Text(
+//           const Text(
 //             'Select Your Plan',
 //             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
 //           ),
@@ -236,10 +237,14 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
 //   Widget _buildPlanButton(String plan) {
 //     return ElevatedButton(
 //       onPressed: () {
-//         setState(() {
-//           _selectedOption = plan == _selectedOption ? '' : plan;
-//           _updateDateRange();
-//         });
+//         if (plan == 'Daily') {
+//           _showDateRangePicker();
+//         } else {
+//           setState(() {
+//             _selectedOption = plan == _selectedOption ? '' : plan;
+//             _setDateRange(plan);
+//           });
+//         }
 //       },
 //       style: ButtonStyle(
 //         backgroundColor: plan == _selectedOption
@@ -250,26 +255,54 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
 //     );
 //   }
 //
-//   void _updateDateRange() {
-//     _focusedDay = DateTime.now();
-//     switch (_selectedOption) {
+//   void _showDateRangePicker() async {
+//     final initialDateRange = DateTimeRange(
+//       start: DateTime.now(),
+//       end: DateTime.now(),
+//     );
+//
+//     final newDateRange = await showDateRangePicker(
+//       context: context,
+//       firstDate: DateTime(DateTime.now().year - 1),
+//       lastDate: DateTime(DateTime.now().year + 1),
+//       initialDateRange: initialDateRange,
+//     );
+//
+//     if (newDateRange != null) {
+//       setState(() {
+//         _selectedDate = newDateRange.start;
+//         _selectedOption = 'Daily';
+//         _setDateRange('Daily', start: newDateRange.start, end: newDateRange.end);
+//       });
+//     }
+//   }
+//
+//   void _setDateRange(String plan, {DateTime? start, DateTime? end}) {
+//     DateTime today = start ?? DateTime.now();
+//     switch (plan) {
 //       case 'Weekly':
-//         _lastDay = _focusedDay.add(Duration(days: 6));
+//         _firstDay = today.subtract(Duration(days: today.weekday - 1));
+//         _lastDay = _firstDay.add(Duration(days: 6));
 //         break;
 //       case 'Fortnight':
-//         _lastDay = _focusedDay.add(Duration(days: 13));
+//         _firstDay = today;
+//         _lastDay = _firstDay.add(Duration(days: 13));
 //         break;
 //       case 'Alternate Days':
-//         _lastDay = _focusedDay.add(Duration(days: 30));
+//         _firstDay = today;
+//         _lastDay = today.add(Duration(days: 29));
 //         break;
 //       case 'One Day':
-//         _lastDay = _focusedDay;
+//         _firstDay = today;
+//         _lastDay = today;
 //         break;
 //       case 'Daily':
 //       default:
-//         _lastDay = DateTime.utc(DateTime.now().year, DateTime.now().month + 1, 1)
-//             .subtract(Duration(days: 1));
+//         _firstDay = start ?? DateTime.utc(today.year, today.month, today.day);
+//         _lastDay = end ?? DateTime.utc(today.year, today.month, today.day);
+//         break;
 //     }
+//     _focusedDay = _firstDay;
 //   }
 //
 //   Widget _buildCalendar() {
@@ -298,9 +331,61 @@ class _CompanyDropDownWidgetState extends State<CompanyDropDownWidget> {
 //             ),
 //           );
 //         },
+//         selectedBuilder: (context, day, focusedDay) {
+//           bool isToday = DateTime.now().isAtSameMomentAs(day);
+//           return _buildHighlightedDay(day, isToday: isToday);
+//         },
+//         todayBuilder: (context, day, focusedDay) {
+//           return _buildHighlightedDay(day, isToday: true);
+//         },
 //       ),
 //     );
 //   }
+//
+//   bool _isHighlighted(DateTime day) {
+//     if (_selectedOption == 'Weekly') {
+//       return day.isAfter(_firstDay.subtract(Duration(days: 1))) &&
+//           day.isBefore(_lastDay.add(Duration(days: 1)));
+//     } else if (_selectedOption == 'Fortnight') {
+//       return day.isAfter(_firstDay.subtract(Duration(days: 1))) &&
+//           day.isBefore(_lastDay.add(Duration(days: 1))) &&
+//           day.difference(_firstDay).inDays % 14 <
+//               7; // Highlight first week of the fortnight
+//     } else if (_selectedOption == 'Alternate Days') {
+//       return day.difference(DateTime.now()).inDays % 2 == 0;
+//     } else if (_selectedOption == 'One Day') {
+//       return day == _firstDay;
+//     } else {
+//       return day.isAfter(_firstDay.subtract(Duration(days: 1))) &&
+//           day.isBefore(_lastDay.add(Duration(days: 1)));
+//     }
+//   }
+//
+//   Widget _buildHighlightedDay(DateTime day, {required bool isToday}) {
+//     bool isHighlighted = _isHighlighted(day);
+//     Color color = isToday ? Colors.blue : Colors.green;
+//
+//     // Check if the day is an alternate day
+//     if (_selectedOption == 'Alternate Days' && day.difference(DateTime.now()).inDays % 2 == 0 && !isToday) {
+//       color = Colors.orange; // Change color for alternate days
+//     }
+//
+//     return Container(
+//       margin: const EdgeInsets.all(4.0),
+//       alignment: Alignment.center,
+//       decoration: BoxDecoration(
+//         color: isHighlighted ? color.withOpacity(0.5) : null,
+//         borderRadius: BorderRadius.circular(12.0),
+//       ),
+//       child: Text(
+//         day.day.toString(),
+//         style: TextStyle(color: isHighlighted ? Colors.green : color),
+//       ),
+//     );
+//   }
+//
+//
+//
 // }
 
 
@@ -338,7 +423,7 @@ class _DropDownCalendarDemoState extends State<DropDownCalendarDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Select Your Plan',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
@@ -357,6 +442,11 @@ class _DropDownCalendarDemoState extends State<DropDownCalendarDemo> {
           ),
           SizedBox(height: 20),
           _buildCalendar(),
+          SizedBox(height: 20),
+          PlansScreen(
+            selectedFromDate: _firstDay,
+            selectedToDate: _lastDay,
+          ),
         ],
       ),
     );
@@ -365,10 +455,14 @@ class _DropDownCalendarDemoState extends State<DropDownCalendarDemo> {
   Widget _buildPlanButton(String plan) {
     return ElevatedButton(
       onPressed: () {
-        setState(() {
-          _selectedOption = plan == _selectedOption ? '' : plan;
-          _setDateRange(plan);
-        });
+        if (plan == 'Daily') {
+          _showDateRangePicker();
+        } else {
+          setState(() {
+            _selectedOption = plan == _selectedOption ? '' : plan;
+            _setDateRange(plan);
+          });
+        }
       },
       style: ButtonStyle(
         backgroundColor: plan == _selectedOption
@@ -379,8 +473,30 @@ class _DropDownCalendarDemoState extends State<DropDownCalendarDemo> {
     );
   }
 
-  void _setDateRange(String plan) {
-    DateTime today = DateTime.now();
+  void _showDateRangePicker() async {
+    final initialDateRange = DateTimeRange(
+      start: DateTime.now(),
+      end: DateTime.now(),
+    );
+
+    final newDateRange = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(DateTime.now().year - 1),
+      lastDate: DateTime(DateTime.now().year + 1),
+      initialDateRange: initialDateRange,
+    );
+
+    if (newDateRange != null) {
+      setState(() {
+        _selectedDate = newDateRange.start;
+        _selectedOption = 'Daily';
+        _setDateRange('Daily', start: newDateRange.start, end: newDateRange.end);
+      });
+    }
+  }
+
+  void _setDateRange(String plan, {DateTime? start, DateTime? end}) {
+    DateTime today = start ?? DateTime.now();
     switch (plan) {
       case 'Weekly':
         _firstDay = today.subtract(Duration(days: today.weekday - 1));
@@ -400,9 +516,8 @@ class _DropDownCalendarDemoState extends State<DropDownCalendarDemo> {
         break;
       case 'Daily':
       default:
-        _firstDay = DateTime.utc(today.year, today.month, 1);
-        _lastDay = DateTime.utc(today.year, today.month + 1, 1)
-            .subtract(Duration(days: 1));
+        _firstDay = start ?? DateTime.utc(today.year, today.month, today.day);
+        _lastDay = end ?? DateTime.utc(today.year, today.month, today.day);
         break;
     }
     _focusedDay = _firstDay;
@@ -435,27 +550,12 @@ class _DropDownCalendarDemoState extends State<DropDownCalendarDemo> {
           );
         },
         selectedBuilder: (context, day, focusedDay) {
-          return _buildHighlightedDay(day);
+          bool isToday = DateTime.now().isAtSameMomentAs(day);
+          return _buildHighlightedDay(day, isToday: isToday);
         },
         todayBuilder: (context, day, focusedDay) {
-          return _buildHighlightedDay(day);
+          return _buildHighlightedDay(day, isToday: true);
         },
-      ),
-    );
-  }
-
-  Widget _buildHighlightedDay(DateTime day) {
-    bool isHighlighted = _isHighlighted(day);
-    return Container(
-      margin: const EdgeInsets.all(4.0),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: isHighlighted ? Colors.blue.withOpacity(0.5) : null,
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Text(
-        day.day.toString(),
-        style: TextStyle(color: isHighlighted ? Colors.white : null),
       ),
     );
   }
@@ -466,9 +566,11 @@ class _DropDownCalendarDemoState extends State<DropDownCalendarDemo> {
           day.isBefore(_lastDay.add(Duration(days: 1)));
     } else if (_selectedOption == 'Fortnight') {
       return day.isAfter(_firstDay.subtract(Duration(days: 1))) &&
-          day.isBefore(_lastDay.add(Duration(days: 1)));
+          day.isBefore(_lastDay.add(Duration(days: 1))) &&
+          day.difference(_firstDay).inDays % 14 <
+              7; // Highlight first week of the fortnight
     } else if (_selectedOption == 'Alternate Days') {
-      return day.difference(_firstDay).inDays % 2 == 0;
+      return day.difference(DateTime.now()).inDays % 2 == 0;
     } else if (_selectedOption == 'One Day') {
       return day == _firstDay;
     } else {
@@ -476,6 +578,34 @@ class _DropDownCalendarDemoState extends State<DropDownCalendarDemo> {
           day.isBefore(_lastDay.add(Duration(days: 1)));
     }
   }
+
+  Widget _buildHighlightedDay(DateTime day, {required bool isToday}) {
+    bool isHighlighted = _isHighlighted(day);
+    Color color = isToday ? Colors.blue : Colors.green;
+
+    // Check if the day is an alternate day
+    if (_selectedOption == 'Alternate Days' && day.difference(DateTime.now()).inDays % 2 == 0 && !isToday) {
+      color = Colors.orange; // Change color for alternate days
+    }
+
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: isHighlighted ? color.withOpacity(0.5) : null,
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Text(
+        day.day.toString(),
+        style: TextStyle(color: isHighlighted ? Colors.green : color),
+      ),
+    );
+  }
 }
+
+
+
+
+
 
 
